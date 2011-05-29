@@ -1,0 +1,28 @@
+Python-libs
+
+by Colin Woodbury <colingw AT gmail>
+
+ABOUT PYTHON-LIBS
+-----------------
+These are my personal python libraries that I use for various tasks.
+The libraries are as follows:
+
+*Currently Available*
+listhelp - Supplies a number of common functions that work on lists which
+           are unavailable in the standard library. 
+           e.g.: scramble()  # Puts the elements of a list into a random order.
+
+*Available Soon*
+strhelp  - Supplies some simple string manipulation functions.
+primes   - Supplies functions for calculating and dealing with prime numbers.
+numworks - Supplies many general purpose math-solving functions.
+
+INSTALLING PYTHON-LIBS
+----------------------
+Just add the directory where you place the source files to your pythonpath.
+To do this, add the following to your .bash_profile (mac) or .bashrc (Linux).
+
+export PYTHONPATH=${PYTHONPATH}:~/path/to/python-libs
+
+Do this, and you will be able to import any of these libraries from
+any location on your computer.
