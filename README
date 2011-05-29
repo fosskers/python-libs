@@ -11,9 +11,11 @@ The libraries are as follows:
 listhelp - Supplies a number of common functions that work on lists which
            are unavailable in the standard library. 
            e.g.: scramble()  # Puts the elements of a list into a random order.
+pghelp   - Supplies functions that can aid in performing tasks done in a 
+	   pygame game.
+strhelp  - Supplies some simple string manipulation functions.
 
 *Available Soon*
-strhelp  - Supplies some simple string manipulation functions.
 primes   - Supplies functions for calculating and dealing with prime numbers.
 numworks - Supplies many general purpose math-solving functions.
 
