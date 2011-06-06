@@ -14,10 +14,10 @@ listhelp - Supplies a number of common functions that work on lists which
 pghelp   - Supplies functions that can aid in performing tasks done in a 
 	   pygame game.
 strhelp  - Supplies some simple string manipulation functions.
+numworks - Supplies many general purpose math-solving functions.
 
 *Available Soon*
 primes   - Supplies functions for calculating and dealing with prime numbers.
-numworks - Supplies many general purpose math-solving functions.
 
 INSTALLING PYTHON-LIBS
 ----------------------

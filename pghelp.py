@@ -4,7 +4,7 @@
 # about:   Libraries for helping out pygame creation.
 
 # COLOURS
-def rand_colour():
+def random_colour():
     '''Generates a random colour.'''
     from random import Random
     r = Random()

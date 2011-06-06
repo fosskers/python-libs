@@ -26,10 +26,8 @@ class picker():
     
 def concat(items):
     '''Concats all the items of the list together as a string.
-    Made: 03/04/2011  Mod: 05/29/2011 to suck even less.
+    Made: 03/04/2011  Mod: 05/31/2011 to kick ass.
     '''
-    if len(items) == 0:
-        return ''
     return ''.join(map(_concat, items))
 
 def _concat(items):
@@ -40,9 +38,23 @@ def _concat(items):
         return concat(items)
     return str(items)
 
+def rotate(items, places=1):
+    '''Rotates elements in a list.'''
+    size = len(items)
+    return items[-(size-places):] + items[:-(size-places)]
+
 def scramble(items):
-    '''Scrambles a given list.'''
-    return [x for x in picker(items)]
+    '''Scrambles a given list. Will never return the same list.
+    What are the chances of this blowing the stack, given a certain word
+    length? That is to say, what are the chances that picker will generate
+    an identicle list, say, 1000 times in a row?
+    '''
+    if len(items) in (0, 1):
+        return list(items)
+    result = [x for x in picker(items)]
+    if result == list(items):
+        result = scramble(items)
+    return result
 
 # BINARY SEARCH, SORT TESTS, AND ORDERED INSERTION
 def is_sorted(items):
