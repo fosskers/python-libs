@@ -29,6 +29,10 @@ def gcd(n, m):
         remainder = upper % lower
     return lower
 
+def lcm(n, m):
+    '''Calculates the lowest common multiple of two numbers.'''
+    return n * m // gcd(n, m)
+
 def is_whole(num):
     """Determines if a number is whole, in other words, an integer.
     Can be used to determine if the sqrt of something is whole.
@@ -103,6 +107,16 @@ def is_bouncy(num):
     return False
 
 # MISC.
+def sdiv(n, m):
+    '''Super division. Divides n by m as many times as possible.'''
+    if n == 0:
+        return 0
+    elif m == 1:
+        return n
+    while n % m == 0:
+        n //= m
+    return n
+
 def is_permutation(n, m):
     '''Permutation test, written using a sort. Written 06/05/2011'''
     n = itol(n)  # Convert both to lists, first.
