@@ -3,14 +3,15 @@
 # contact: colingw AT gmail
 # about:   A module that performs various calculations
 #          relating to prime numbers.
+# updated: 06/07/2011 
 
 from itertools import takewhile, count
-from listhelp import bin_search
-from funchelp import take, head
-from math import sqrt as _sqrt
+from listhelp  import bin_search
+from funchelp  import take, head
+from math      import sqrt as _sqrt
 from fractions import gcd
-from numworks import sdiv
-from time import time
+from numworks  import sdiv
+from time      import time
 
 class primes():
     '''All the prime numbers.'''

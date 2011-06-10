@@ -18,17 +18,6 @@ def factorial(num, limit=1):
         num -= 1
     return result
 
-def gcd(n, m):
-    '''Determines the greatest common divisor of two numbers.'''
-    upper = n
-    lower = m
-    remainder = n % m
-    while remainder != 0:
-        upper = lower
-        lower = remainder
-        remainder = upper % lower
-    return lower
-
 def lcm(n, m):
     '''Calculates the lowest common multiple of two numbers.'''
     return n * m // gcd(n, m)
@@ -60,9 +49,9 @@ def ltoi(digits):
     return _reduce(lambda acc, n: acc * 10 + n, digits)
 
 def int_concat(nums):
-    """Concatinates a list of ints.
+    '''Concatinates a list of ints.
     Written 03/04/2011  Mod 06/04/2011
-    """
+    '''
     merged = ''.join(map(str, nums))
     return int(merged)
 
@@ -70,7 +59,7 @@ def rotate(num, places=1):
     '''Rotates an int to the left.'''
     return ltoi(_rotate(itol(num), places))
 
-def reverse(num):
+def reverse_digits(num):
     '''Given an int, reverses it.'''
     digits = itol(num)
     digits.reverse()
@@ -97,8 +86,8 @@ def is_incdec(num, func):
     digits = itol(num)
     if len(digits) < 2:
         return False
-    in_ord = zip(digits, digits[1:])
-    return False not in map(func, in_ord)
+    in_order = zip(digits, digits[1:])
+    return all(map(func, in_order))
 
 def is_bouncy(num):
     '''A number is bouncy if it is neither increasing nor decreasing.'''
@@ -118,7 +107,7 @@ def sdiv(n, m):
     return n
 
 def is_permutation(n, m):
-    '''Permutation test, written using a sort. Written 06/05/2011'''
+    '''Permutation test, using a sort. Written 06/05/2011'''
     n = itol(n)  # Convert both to lists, first.
     m = itol(m)
     if n.sort() == m.sort():
