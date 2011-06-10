@@ -15,6 +15,7 @@ pghelp   - Supplies functions that can aid in performing tasks done in a
 	   pygame game.
 strhelp  - Supplies some simple string manipulation functions.
 funchelp - Supplies some functions that mimic their Haskell counterparts.
+syshelp  - Simplifies common programming patterns using the sys library.
 numworks - Supplies many general purpose math-solving functions.
 primes   - Supplies functions for calculating and dealing with prime numbers.
 

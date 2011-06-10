@@ -4,23 +4,20 @@
 # about:   A module that aids in certain mathematical calculations. 
 
 from functools import reduce as _reduce
-from listhelp import rotate as _rotate
-from math import floor as _floor
+from listhelp  import rotate as _rotate
+from math      import floor  as _floor
+from fractions import gcd    as _gcd
 
 # COMMON OPERATIONS
 def factorial(num, limit=1):
     '''Can impose a limit to stop the multiplication part-way through.
     This represents x!/y! (factorial division) when y is less than x.
     '''
-    result = 1
-    while num > limit:
-        result *= num
-        num -= 1
-    return result
+    return _reduce(lambda acc, n: acc * n, range(limit, num+1), 1)
 
 def lcm(n, m):
     '''Calculates the lowest common multiple of two numbers.'''
-    return n * m // gcd(n, m)
+    return n * m // _gcd(n, m)
 
 def is_whole(num):
     """Determines if a number is whole, in other words, an integer.
