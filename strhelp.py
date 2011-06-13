@@ -10,8 +10,7 @@ def check_type(func):
     def inner(item):
         if not isinstance(item, str):
             raise NonStringError('Non-string passed as an argument.')
-        result = func(item)
-        return result
+        return func(item)
     return inner
     
 @check_type

@@ -1,14 +1,27 @@
 # numworks.py
 # author:  Colin Woodbury
 # contact: colingw@gmail.com
-# about:   A module that aids in certain mathematical calculations. 
+# about:   A module that aids in certain mathematical calculations.
+# updated: 06/12/2011
 
 from functools import reduce as _reduce
 from listhelp  import rotate as _rotate
 from math      import floor  as _floor
 from fractions import gcd    as _gcd
 
+from decorum import *
+
+def no_negatives(func):
+    '''Does not allow negative numbers to be passed to a function.'''
+    def inner(*args):
+        for arg in args:
+            if arg < 0:
+                raise ValueError('Negative number given.')
+        return func(*args)
+    return inner
+
 # COMMON OPERATIONS
+@no_negatives
 def factorial(num, limit=1):
     '''Can impose a limit to stop the multiplication part-way through.
     This represents x!/y! (factorial division) when y is less than x.
@@ -28,15 +41,17 @@ def is_whole(num):
     return False
 
 # NUMBERS AS LISTS
+@no_negatives
 def itol(num):
-    """Converts a given int to a list,
-    with each digit as a single element in the list.
-    Last modified: 2/17/2011"""
+    '''Converts a given int to a list, with each digit 
+    as a single element in the list. Mod: 06/13/2011
+    '''
     digits = []
+    d_a = digits.append
     if num == 0:
-        digits.append(0)
+        d_a(0)
     while num > 0:
-        digits.append(num % 10)
+        d_a(num % 10)
         num //= 10
     digits.reverse()
     return digits
@@ -95,10 +110,8 @@ def is_bouncy(num):
 # MISC.
 def sdiv(n, m):
     '''Super division. Divides n by m as many times as possible.'''
-    if n == 0:
-        return 0
-    elif m == 1:
-        return n
+    if n == 0 or m == 1:
+        return n  # Returns 0 or n's original value.
     while n % m == 0:
         n //= m
     return n
@@ -128,6 +141,7 @@ def sum_of_digits(num):
     digits = itol(abs(num))
     return sum(digits)
 
+@no_negatives
 def to_base2(num):
     '''Converts a base 10 number to base 2.'''
     result = 0

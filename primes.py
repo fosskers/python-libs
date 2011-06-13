@@ -5,13 +5,17 @@
 #          relating to prime numbers.
 # updated: 06/07/2011 
 
+# Big primes: 104729, 1299709, 7368787
+
+# TODO: Make phi() less ugly.
+
+from math      import sqrt as _sqrt, ceil as _ceil
 from itertools import takewhile, count
-from listhelp  import bin_search
-from funchelp  import take, head
-from math      import sqrt as _sqrt
-from fractions import gcd
+from funchelp  import take, head, tail
 from numworks  import sdiv
-from time      import time
+from fractions import gcd
+
+from decorum import *
 
 class primes():
     '''All the prime numbers.'''
@@ -25,7 +29,7 @@ def is_prime(num):
     '''Tests if a given number is prime.'''
     if num == 2:
         return True
-    elif num <= 1 or num % 2 == 0:
+    elif num % 2 == 0 or num <= 1:
         return False
     count = 3
     root = _sqrt(num)
@@ -35,6 +39,18 @@ def is_prime(num):
         count += 2
     return True
 
+def is_prime2(num):
+    '''Tests if a given number is prime.
+    Seems to be faster for higher numbers.
+    '''
+    if num == 2:
+        return True
+    elif num % 2 == 0 or num <= 1:
+        return False
+    root = _ceil(_sqrt(num))
+    return all(map(lambda div: False if num % div == 0 else True, 
+                   range(3, root+1, 2)))
+    
 def next_prime(num):
     """Given any number, determines the first number greater
     than it that is prime.
@@ -47,9 +63,10 @@ def next_prime(num):
         num -= 1
     return head(filter(is_prime, count(num + 2, 2)))
 
+@time_it
 def nth_prime(n):
     '''Calculates the nth prime, as indicated by the caller.'''
-    return list(take(n, primes()))[n - 1]
+    return tail(take(n, primes()))
 
 def primes_upto(lim):
     '''Gets all the primes up to a certain limit.'''
@@ -91,10 +108,8 @@ def relative_primes(num):
     '''Returns a list of relative primes, relative to the given number.
     This is quite faster than using gcd.
     '''
-    if num == 1:
-        return []
-    elif is_prime(num):
-        return list(range(1, num))
+    if num == 1 or is_prime(num):
+        return list(range(1, num))  # num == 1 returns [].
     result = range(1, num)
     for factor in prime_factors(num):
         result = filter(lambda n, factor=factor: n % factor != 0, result)

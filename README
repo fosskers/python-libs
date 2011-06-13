@@ -8,6 +8,7 @@ These are my personal python libraries that I use for various tasks.
 The libraries are as follows:
 
 *Currently Available*
+numworks - Supplies many general purpose math-solving functions.
 listhelp - Supplies a number of common functions that work on lists which
            are unavailable in the standard library. 
            e.g.: scramble()  # Puts the elements of a list into a random order.
@@ -16,8 +17,8 @@ pghelp   - Supplies functions that can aid in performing tasks done in a
 strhelp  - Supplies some simple string manipulation functions.
 funchelp - Supplies some functions that mimic their Haskell counterparts.
 syshelp  - Simplifies common programming patterns using the sys library.
-numworks - Supplies many general purpose math-solving functions.
 primes   - Supplies functions for calculating and dealing with prime numbers.
+decorum  - Supplies some handy decorators for various tasks.
 
 INSTALLING PYTHON-LIBS
 ----------------------
