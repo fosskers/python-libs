@@ -29,10 +29,10 @@ class primes():
 
 def is_prime(num):
     '''Tests if a given number is prime. Written procedurally.'''
-    if num % 2 == 0 or num <= 1:
-        return False
-    elif num == 2:
+    if num == 2:
         return True
+    elif num % 2 == 0 or num <= 1:
+        return False
     count = 3
     root = _sqrt(num)
     while count <= root:
@@ -43,20 +43,20 @@ def is_prime(num):
 
 def is_prime2(num):
     '''Tests if a given number is prime. Written with a map.'''
-    if num % 2 == 0 or num <= 1:
-        return False
-    elif num == 2:
+    if num == 2:
         return True
+    elif num % 2 == 0 or num <= 1:
+        return False
     root = _ceil(_sqrt(num))
     return all(map(lambda div: False if num % div == 0 else True, 
                    range(3, root+1, 2)))
 
 def is_prime3(num):
     '''Tests if a given number is prime. Written with reduce.'''
-    if num % 2 == 0 or num <= 1:
-        return False
-    elif num == 2:
+    if num == 2:
         return True
+    elif num % 2 == 0 or num <= 1:
+        return False
     root = _ceil(_sqrt(num))
     return _reduce(lambda acc, d: False if not acc or num % d == 0 else True,
                    range(3, root+1, 2), True)
