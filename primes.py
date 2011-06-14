@@ -7,11 +7,12 @@
 
 # Big primes: 104729, 1299709, 7368787
 
-# TODO: Make phi() less ugly.
+# TODO: Make an iterator version of prime_factors()?
 
 from math      import sqrt as _sqrt, ceil as _ceil
+from functools import reduce as _reduce
 from itertools import takewhile, count
-from funchelp  import take, head, tail
+from funchelp  import take, head, last
 from numworks  import sdiv
 from fractions import gcd
 
@@ -20,17 +21,18 @@ from decorum import *
 class primes():
     '''All the prime numbers.'''
     def __iter__(self):
-        prime = 2
+        yield 2
+        prime = 3
         while True:
             yield prime
-            prime = next_prime(prime)
+            prime = _next_prime(prime)
 
 def is_prime(num):
-    '''Tests if a given number is prime.'''
-    if num == 2:
-        return True
-    elif num % 2 == 0 or num <= 1:
+    '''Tests if a given number is prime. Written procedurally.'''
+    if num % 2 == 0 or num <= 1:
         return False
+    elif num == 2:
+        return True
     count = 3
     root = _sqrt(num)
     while count <= root:
@@ -40,33 +42,42 @@ def is_prime(num):
     return True
 
 def is_prime2(num):
-    '''Tests if a given number is prime.
-    Seems to be faster for higher numbers.
-    '''
-    if num == 2:
-        return True
-    elif num % 2 == 0 or num <= 1:
+    '''Tests if a given number is prime. Written with a map.'''
+    if num % 2 == 0 or num <= 1:
         return False
+    elif num == 2:
+        return True
     root = _ceil(_sqrt(num))
     return all(map(lambda div: False if num % div == 0 else True, 
                    range(3, root+1, 2)))
+
+def is_prime3(num):
+    '''Tests if a given number is prime. Written with reduce.'''
+    if num % 2 == 0 or num <= 1:
+        return False
+    elif num == 2:
+        return True
+    root = _ceil(_sqrt(num))
+    return _reduce(lambda acc, d: False if not acc or num % d == 0 else True,
+                   range(3, root+1, 2), True)
     
 def next_prime(num):
-    """Given any number, determines the first number greater
-    than it that is prime.
-    """
+    '''Given any number, determines the first prime number greater than it.'''
     if num < 2:
         return 2
     elif num == 2:
         return 3
     elif num % 2 == 0:  # Even number. Perform magic.
         num -= 1
-    return head(filter(is_prime, count(num + 2, 2)))
+    return _next_prime(num)
 
-@time_it
+def _next_prime(odd):
+    '''Optimized version. Assumes its arg is odd and positive.'''
+    return head(filter(is_prime, count(odd + 2, 2)))
+
 def nth_prime(n):
     '''Calculates the nth prime, as indicated by the caller.'''
-    return tail(take(n, primes()))
+    return last(take(n, primes()))
 
 def primes_upto(lim):
     '''Gets all the primes up to a certain limit.'''
@@ -81,16 +92,17 @@ def prime_factors(n):
     if n < 2:
         return []
     factors = []
+    f_a = factors.append
     lim = 10  # After ten failures, checks if n has reduced to a prime.
     for prime in primes():
         if n % prime == 0:
-            factors.append(prime)
+            f_a(prime)
             n = sdiv(n, prime)  # Reduce n as far as possible.
             lim = 10  # Reset the fail limit.
             if n == 1:  # We're done!
                 break
         elif lim == 0 and is_prime(n):
-            factors.append(n)
+            f_a(n)
             break
         else:  # A certain prime failed to divide.
             lim -= 1
@@ -117,20 +129,11 @@ def relative_primes(num):
 
 # PROJECT EULER FUNCTIONS
 def phi(n):
-    """This is Euler's Function."""
+    '''Euler's totient function. Yields the number of coprimes of n.'''
     if n == 1:
-        result = 1
-    else:
-        factors = prime_factors(n, True)
-        result = n
-        for each in factors:
-            result *= (1 - (1 / float(each)))
-        temp = int(result) #this takes care of rounding issues
-        if result - temp > 0.5:
-            result = temp + 1
-        else:
-            result = temp
-    return result
+        return 1
+    factors = prime_factors(n)
+    return int(n * _reduce(lambda acc, f: acc * (1 - (1 / f)), factors, 1))
 
 def consec_prime_sum(num):
     """Given a prime number, determines what sequence
