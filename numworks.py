@@ -4,12 +4,11 @@
 # about:   A module that aids in certain mathematical calculations.
 # updated: 06/12/2011
 
+from listhelp  import rotate as _rotate, frequencies as _freqs
+from funchelp  import take   as _take,   last        as _last
 from functools import reduce as _reduce
-from listhelp  import rotate as _rotate
 from math      import floor  as _floor
 from fractions import gcd    as _gcd
-
-from decorum import *
 
 def no_negatives(func):
     '''Does not allow negative numbers to be passed to a function.'''
@@ -18,6 +17,14 @@ def no_negatives(func):
             if arg < 0:
                 raise ValueError('Negative number given.')
         return func(*args)
+    return inner
+
+def non_empty(func):
+    '''Does not allow an empty list to be passed to a function.'''
+    def inner(arg):
+        if len(arg) < 1:
+            raise ValueError('Empty list given.')
+        return func(arg)
     return inner
 
 # COMMON OPERATIONS
@@ -33,12 +40,58 @@ def lcm(n, m):
     return n * m // _gcd(n, m)
 
 def is_whole(num):
-    """Determines if a number is whole, in other words, an integer.
+    '''Determines if a number is whole, in other words, an integer.
     Can be used to determine if the sqrt of something is whole.
-    """
+    '''
     if num == _floor(num):
         return True
     return False
+
+# PROBABILITY
+@non_empty
+def mean(items):
+    '''Calculates the mean of a list of numbers.'''
+    return sum(items) / len(items)
+
+@non_empty
+def median(items):
+    '''Finds the median of a set of numbers.'''
+    items.sort()  # No guarantee the arg list was sorted.
+    size = len(items)
+    mid = size // 2
+    if size % 2 != 0:  # Odd number of args.
+        return items[mid]
+    # Even number of elements. Find mean of middle two.
+    return mean((items[mid - 1], items[mid]))
+
+@non_empty
+def mode(items):
+    '''Finds the mode of a set of numbers.
+    BUG: Can't handle ties yet.
+    '''
+    items  = _freqs(items)
+    record = 0
+    count  = 0
+    for key in items:
+        if items[key] > count:
+            count  = items[key]
+            record = key
+    return record
+
+# FIBONACCI NUMBERS
+class fibonacci():
+    '''Generates all the numbers of the fibonacci sequence.'''
+    def __iter__(self):
+        a = 0
+        b = 1
+        while True:
+            yield a + b
+            a, b = b, a + b
+
+@no_negatives
+def nth_fib(n):
+    '''Gets the nth fibonacci number.'''
+    return _last(_take(n, fibonacci()))
 
 # NUMBERS AS LISTS
 @no_negatives
@@ -56,10 +109,12 @@ def itol(num):
     digits.reverse()
     return digits
 
+@non_empty
 def ltoi(digits):
     '''Written with reduce. Written 06/04/2011'''
     return _reduce(lambda acc, n: acc * 10 + n, digits)
 
+@non_empty
 def int_concat(nums):
     '''Concatinates a list of ints.
     Written 03/04/2011  Mod 06/04/2011

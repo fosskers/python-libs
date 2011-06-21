@@ -3,23 +3,21 @@
 # contact: colingw AT gmail
 # about:   A module that performs various calculations
 #          relating to prime numbers.
-# updated: 06/07/2011 
+# updated: 06/21/2011 
 
 # Big primes: 104729, 1299709, 7368787
 
 # TODO: Make an iterator version of prime_factors()?
 
-from math      import sqrt as _sqrt, ceil as _ceil
+from math      import sqrt   as _sqrt, ceil as _ceil
 from functools import reduce as _reduce
 from itertools import takewhile, count
 from funchelp  import take, head, last
 from numworks  import sdiv
 from fractions import gcd
 
-from decorum import *
-
 class primes():
-    '''All the prime numbers.'''
+    '''An iterator that produces all the prime numbers.'''
     def __iter__(self):
         yield 2
         prime = 3

@@ -28,3 +28,13 @@ def time_to_n(func, low=0):
         end = _time()
         print('Ran {} to {} in {} s'.format(func.__name__, n, end - start))
     return inner
+
+def time_to_n_list(func):
+    '''Times a function using progressively larger list sizes.'''
+    def inner(n):
+        start = _time()
+        for x in range(n):
+            func(list(range(x)))
+        end = _time()
+        print('Ran {} to {} in {} s'.format(func.__name__, n, end - start))
+    return inner

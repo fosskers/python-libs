@@ -3,6 +3,8 @@
 # contact: colingw AT gmail
 # about:   A module that helps with list processing.
 
+from decorum import *
+
 class picker():
     '''An iterator that yields random elements from a given list
     until all the elements have been given.
@@ -56,6 +58,18 @@ def scramble(items):
         result = scramble(items)
     return result
 
+def frequencies(items):
+    '''Produces a dictionary of keys equal to the items in 'items',
+    and values that indicate how many times that item appeared.
+    '''
+    freqs = {}
+    for item in items:
+        if item in freqs:
+            freqs[item] += 1
+        else:
+            freqs[item] = 1
+    return freqs
+
 # BINARY SEARCH, SORT TESTS, AND ORDERED INSERTION
 def is_sorted(items):
     '''Determines if a list is sorted.'''
@@ -66,12 +80,19 @@ def is_sorted(items):
             return False
     return True
 
+def is_sorted2(items):
+    '''Determines if a list is sorted, in a functional style. Slower.'''
+    if len(items) in (0, 1):
+        return True
+    pairs = zip(items, items[1:])
+    return all(map(lambda tup: False if tup[0] > tup[1] else True, pairs))
+
 def bin_search(items, num):
     '''A binary search algorithm.'''
-    size = len(items)
+    size  = len(items)
     lower = 0
     upper = size - 1
-    loc = -1  # Assume failure.
+    loc   = -1  # Assume failure.
     if size == 0:
         return -1
     while lower <= upper:
