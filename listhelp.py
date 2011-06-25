@@ -11,8 +11,8 @@ class picker():
     '''
     def __init__(self, items, lim=None):
         self.items = list(items)
-        if not lim or lim > len(items):
-            lim = len(items)
+        if not lim or lim > len(self.items):
+            lim = len(self.items)
         self.lim = lim
 
     def __len__(self):

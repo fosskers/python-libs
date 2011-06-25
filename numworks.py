@@ -84,6 +84,7 @@ class fibonacci():
     def __iter__(self):
         a = 0
         b = 1
+        yield 1
         while True:
             yield a + b
             a, b = b, a + b
