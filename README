@@ -17,6 +17,7 @@ pghelp   - Supplies functions that can aid in performing tasks done in a
 strhelp  - Supplies some simple string manipulation functions.
 funchelp - Supplies some functions that mimic their Haskell counterparts.
 syshelp  - Simplifies common programming patterns using the sys library.
+filehelp - Supplies functions that perform certain tasks on files.
 primes   - Supplies functions for calculating and dealing with prime numbers.
 decorum  - Supplies some handy decorators for various tasks.
 
