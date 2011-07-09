@@ -3,7 +3,7 @@
 # contact: colingw AT gmail
 # about:   A module that performs various calculations
 #          relating to prime numbers.
-# updated: 06/21/2011 
+# updated: 06/28/2011 
 
 # Big primes: 104729, 1299709, 7368787
 
@@ -107,12 +107,10 @@ def prime_factors(n):
     return factors
 
 def is_relative_prime(n, m):
-    """Determines if two numbers are relatively prime,
+    '''Determines if two numbers are relatively prime,
     that is, if they have no common factors other than 1.
-    """
-    if gcd(n, m) == 1:
-        return True
-    return False
+    '''
+    return True if gcd(n, m) == 1 else False
 
 def relative_primes(num):
     '''Returns a list of relative primes, relative to the given number.

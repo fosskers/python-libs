@@ -2,7 +2,7 @@
 # author:  Colin Woodbury
 # contact: colingw@gmail.com
 # about:   A module that aids in certain mathematical calculations.
-# updated: 06/12/2011
+# updated: 07/08/2011
 
 from listhelp  import rotate as _rotate, frequencies as _freqs
 from funchelp  import take   as _take,   last        as _last
@@ -43,9 +43,7 @@ def is_whole(num):
     '''Determines if a number is whole, in other words, an integer.
     Can be used to determine if the sqrt of something is whole.
     '''
-    if num == _floor(num):
-        return True
-    return False
+    return True if num == _floor(num) else False
 
 # PROBABILITY
 @non_empty
@@ -77,6 +75,34 @@ def mode(items):
             count  = items[key]
             record = key
     return record
+
+# GEOMETRY
+# WILL NOT WORK WITH PYTHON2.X
+tau = 6.283185307179586
+
+def circle_area(radius):
+    '''Calculates the area of a circle.'''
+    return tau * (radius ** 2) / 2
+
+def circle_circum(radius):
+    '''Calculates the circumference of a circle.'''
+    return tau * radius
+
+def sphere_area(radius):
+    '''Calculates the surface area of a sphere.'''
+    return 2 * tau * (radius ** 2)
+
+def sphere_vol(radius):
+    '''Calculates the volume of a sphere.'''
+    return (2 / 3) * tau * (radius ** 3)
+
+def to_radians(degrees):
+    '''Converts degrees to radians.'''
+    return tau * degrees / 360
+
+def to_degrees(radians):
+    '''Converts radians to degrees.'''
+    return 360 * radians / tau
 
 # FIBONACCI NUMBERS
 class fibonacci():
@@ -159,9 +185,7 @@ def is_incdec(num, func):
 
 def is_bouncy(num):
     '''A number is bouncy if it is neither increasing nor decreasing.'''
-    if not is_increasing(num) and not is_decreasing(num):
-        return True  # Bouncy!                           
-    return False
+    return True if not is_increasing(num) and not is_decreasing(num) else False
 
 # MISC.
 def sdiv(n, m):
@@ -176,9 +200,7 @@ def is_permutation(n, m):
     '''Permutation test, using a sort. Written 06/05/2011'''
     n = itol(n)  # Convert both to lists, first.
     m = itol(m)
-    if n.sort() == m.sort():
-        return True
-    return False
+    return True if n.sort() == m.sort() else False
         
 def is_pandigital(num, bound=1):
     '''Determines if an int is pandigital. A number if pandigital
@@ -201,7 +223,7 @@ def sum_of_digits(num):
 def to_base2(num):
     '''Converts a base 10 number to base 2.'''
     result = 0
-    exp = 0
+    exp    = 0
     while num > 0:
         bit = num % 2
         result += bit * (10 ** exp)
