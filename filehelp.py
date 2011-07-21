@@ -7,7 +7,8 @@ from random import randrange as _randrange
 
 def random_line(in_file):
     '''Given a file, returns a random line.'''
-    pos = _randrange(0, in_file.seek(0, 2))  # Find a random position.
+    in_file.seek(0, 2) # Initial seek. (for python 2 compatibility below)
+    pos = _randrange(0, in_file.tell())  # Find a random position.
     in_file.seek(lseek(in_file, pos))  # Seek to the start of its line.
     return in_file.readline()
 
@@ -42,7 +43,8 @@ def get_end(in_file):
     '''Gets the cursor position of the last char of the file, before
     the EOF marker.
     '''
-    return in_file.seek(0, 2) - 1
+    in_file.seek(0, 2)
+    return in_file.tell() - 1  # Fucking python 2.
 
 def jump_back(in_file, pos, jump_dist):
     '''Given a position and a distance to jump back by, moves the

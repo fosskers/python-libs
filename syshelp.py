@@ -15,7 +15,7 @@ def get_args(oper='EXACTLY', num=1):
       '''
     comps = {'EXACTLY': '!=', 'AT_LEAST': '<'}
     if oper not in comps:
-        print('Bad comparison code ->', oper)
+        print('Bad comparison code -> {0}'.format(oper))
         return
     if eval('len(sys.argv) {0} num + 1'.format(comps[oper])):  # +1 for filename
         print('Bad number of args ->', sys.argv[1:])
